@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 ############ COLOURED BASH TEXT
 
@@ -11,13 +11,19 @@ PURPLE='\033[0;35m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-###############################
 
-###
-### This just starts the other scripts.
-###
+################################################################################################## FILE & FOLDER PATHS
 
-LOC="$HOME/bash.network"
+# Location
+APPLICATION="network"
+BASE="$HOME/bash.$APPLICATION"
+FILES="$BASE/files"
+APP_LIST="$FILES/packages.txt"
+
+# Pre-Configuration
+BASH="$HOME/order_66"
+mkdir -p $BASH
+cp $APP_LIST $BASH
 
 chmod +x -r $LOC
 
