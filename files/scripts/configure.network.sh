@@ -12,17 +12,18 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 ###############################
-# Name of the Git Clone folder
-folderName="bash.network"
 
-# Install Files Location
-CUT="$HOME/$folderName/files"
-
+# Location
+APPLICATION="network"
+BASE="$HOME/bash.$APPLICATION"
+FILES="$BASE/files"
+SCRIPTS="$FILES/scripts"
+APP_LIST="$FILES/packages.txt"    # File containing package names
+# Pre-Configuration
+BASH="$HOME/order_66"
 # Log file for package installations
 logFile="$HOME/network_install_log.txt"
-packageFile="$CUT/samba.packages.txt"  # File containing package names
-
-# Define directories
+# Define User
 currentUser=$(whoami)
 
 
@@ -100,16 +101,13 @@ else
     echo "Hostname remains as $currentHostname. No changes made."
 fi
 
-# Function to install a package if not already installed and log to file
-install_package() {
-    local package="$1"
-    if pacman -Qi "$package" &> /dev/null; then
-        echo "$(date '+%Y-%m-%d %H:%M:%S') - $package is already installed." >> "$logFile"
-    else
-        echo "$(date '+%Y-%m-%d %H:%M:%S') - Installing $package..." >> "$logFile"
-        sudo pacman -S --noconfirm "$package" >> "$logFile" 2>&1
-    fi
-}
+mkdir -p $BASH
+cp $APP_LIST $BASH
+
+# Install packages from packages.txt
+git clone https://github.com/querzion/bash.pkmgr.git $HOME
+chmod +x -R $HOME/bash.pkmgr
+sh $HOME/bash.pkmgr/installer.sh
 
 # Function to create a directory if it doesn't exist
 create_dir_if_not_exists() {
@@ -186,15 +184,8 @@ sudo systemctl enable --now smb nmb avahi-daemon
 echo -e "${YELLOW} Configuring nss-mdns... ${NC}"
 sudo sed -i 's/hosts: files mymachines myhostname/hosts: files mymachines myhostname mdns_minimal [NOTFOUND=return] dns/g' /etc/nsswitch.conf
 
-# Install packages listed in packages.txt
-echo -e "${YELLOW} Installing packages from $packageFile... ${NC}"
-while IFS= read -r package; do
-    install_package "$package"
-done < "$packageFile"
-
 # Install and configure NFS
-echo -e "${YELLOW} Installing and configuring NFS... ${NC}"
-install_package "nfs-utils"
+echo -e "${YELLOW} Configuring NFS... ${NC}"
 
 # Configure NFS exports
 sudo tee -a /etc/exports > /dev/null <<EOL
