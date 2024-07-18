@@ -1,8 +1,0 @@
-samba
-smbclient
-nfs-utils
-ufw
-avahi
-nss-mdns
-cifs-utils
-inetutils

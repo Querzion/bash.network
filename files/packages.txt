@@ -1,0 +1,8 @@
+"pacman" "samba" # SMB/CIFS implementation for file sharing
+"pacman" "smbclient" # SMB client utilities
+"pacman" "nfs-utils" # Network File System utilities
+"pacman" "ufw" # Uncomplicated Firewall
+"pacman" "avahi" # Zeroconf networking
+"pacman" "nss-mdns" # Multicast DNS resolution
+"pacman" "cifs-utils" # Tools for mounting and managing CIFS shares
+"pacman" "inetutils" # Networking utilities
