@@ -1,4 +1,13 @@
 # bash.network
+```bash
+git clone https://github.com/Querzion/bash.network.git $HOME
+```
+```bash
+chmod +x -r $HOME/bash.network
+```
+```bash
+sh $HOME/bash.network/start.sh
+```
 ### This script installs, a small slew of packages. 
   -  samba
   -  smbclient
