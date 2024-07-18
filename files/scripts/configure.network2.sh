@@ -12,17 +12,18 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 ###############################
-# Name of the Git Clone folder
-folderName="bash.network"
 
-# Install Files Location
-CUT="$HOME/$folderName/files"
-
+# Location
+APPLICATION="network"
+BASE="$HOME/bash.$APPLICATION"
+FILES="$BASE/files"
+SCRIPTS="$FILES/scripts"
+APP_LIST="$FILES/packages.txt"    # File containing package names
+# Pre-Configuration
+BASH="$HOME/order_66"
 # Log file for package installations
 logFile="$HOME/network_install_log.txt"
-packageFile="$CUT/samba.packages.txt"  # File containing package names
-
-# Define directories
+# Define User
 currentUser=$(whoami)
 
 
@@ -99,6 +100,9 @@ if [[ $changeHostname =~ ^[Yy]$ ]]; then
 else
     echo "Hostname remains as $currentHostname. No changes made."
 fi
+
+mkdir -p $BASH
+cp $APP_LIST $BASH
 
 # Install packages from packages.txt
 git clone https://github.com/querzion/bash.pkmgr.git $HOME
