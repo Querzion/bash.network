@@ -103,9 +103,9 @@ fi
 
 packages_txt() {
     # Check if $HOME/bash directory exists, if not create it
-    if [ ! -d "$HOME/bash" ]; then
-        mkdir -p "$HOME/bash"
-        print_message "$GREEN" "Created directory: $HOME/bash"
+    if [ ! -d "$BASH" ]; then
+        mkdir -p "$BASH"
+        print_message "$GREEN" "Created directory: $BASH"
     fi
     
     # Check if $HOME/bash.pkmgr exists, delete it if it does
@@ -141,6 +141,9 @@ create_dir_if_not_exists() {
 
 # Install packages from ..bash/packages.txt
 packages_txt
+
+# Add user to groups, just because.
+sudo usermod -aG storage,network,ftp $currentUser
 
 # Backup the original smb.conf file
 sudo cp -n /etc/samba/smb.conf{,.bak} || true
