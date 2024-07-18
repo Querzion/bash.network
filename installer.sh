@@ -21,14 +21,7 @@ FILES="$BASE/files"
 SCRIPTS="$FILES/scripts"
 APP_LIST="$FILES/packages.txt"
 
-# Pre-Configuration
-BASH="$HOME/order_66"
-
-
 ################################################################################################## INSTALLATION
-
-mkdir -p $BASH
-cp $APP_LIST $BASH
 
 chmod +x -r $BASE
 
