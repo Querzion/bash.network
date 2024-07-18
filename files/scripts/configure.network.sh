@@ -101,13 +101,30 @@ else
     echo "Hostname remains as $currentHostname. No changes made."
 fi
 
-mkdir -p $BASH
-cp $APP_LIST $BASH
-
-# Install packages from packages.txt
-git clone https://github.com/querzion/bash.pkmgr.git $HOME
-chmod +x -R $HOME/bash.pkmgr
-sh $HOME/bash.pkmgr/installer.sh
+packages_txt() {
+    # Check if $HOME/bash directory exists, if not create it
+    if [ ! -d "$HOME/bash" ]; then
+        mkdir -p "$HOME/bash"
+        print_message "$GREEN" "Created directory: $HOME/bash"
+    fi
+    
+    # Check if $HOME/bash.pkmgr exists, delete it if it does
+    if [ -d "$HOME/bash.pkmgr" ]; then
+        print_message "$YELLOW" "Removing existing $HOME/bash.pkmgr"
+        rm -rf "$HOME/bash.pkmgr"
+    fi
+    
+    # Copy ../files/packages.txt to /home/user/bash
+    cp "$APP_LIST" "$BASH"
+    print_message "$CYAN" "Copied $APP_LIST to $BASH"
+    
+    # Get the Package Manager & Package Installer
+    git clone https://github.com/Querzion/bash.pkmgr.git "$HOME/bash.pkmgr"
+    chmod +x -R "$HOME/bash.pkmgr"
+    sh "$HOME/bash.pkmgr/installer.sh"
+    
+    print_message "$GREEN" "Applications installed successfully."
+}
 
 # Function to create a directory if it doesn't exist
 create_dir_if_not_exists() {
@@ -121,6 +138,9 @@ create_dir_if_not_exists() {
         echo -e "${YELLOW}Directory '$dir' already exists.${NC}"
     fi
 }
+
+# Install packages from ..bash/packages.txt
+packages_txt
 
 # Backup the original smb.conf file
 sudo cp -n /etc/samba/smb.conf{,.bak} || true
