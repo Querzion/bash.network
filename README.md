@@ -13,10 +13,8 @@
   -  nfs
   -  avahi
   -  ufw
-  -  shares
-Mounts them in $HOME/Network/shared/*
-  -  network shares
-Mounts MY network shares into $HOME/Network/*
+  -  shares (Mounts them in $HOME/Network/shared/*)
+  -  network shares (Mounts MY network specific shares into $HOME/Network/*)
 ### Configures 
   -  ufw, etc.
 and enables and starts all services. 
