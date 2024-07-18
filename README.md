@@ -6,7 +6,7 @@ git clone https://github.com/Querzion/bash.network.git $HOME
 chmod +x -r $HOME/bash.network
 ```
 ```bash
-sh $HOME/bash.network/start.sh
+sh $HOME/bash.network/installer.sh
 ```
 ### This script installs, a small slew of packages. 
   -  samba
